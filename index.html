@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نظام حجز الملعب</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>نموذج حجز ملعب</h1>
+  <div class="form-container">
+    <form id="bookingForm">
+      <input type="text" id="name" placeholder="الاسم" required>
+      <input type="text" id="phone" placeholder="رقم الهاتف" required>
+      <select id="hour" required></select>
+      <input type="password" id="password" placeholder="كلمة السر" required>
+      <button type="submit">حجز</button>
+    </form>
+    <button id="clearAllBtn">مسح جميع الحجوزات</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>الساعة</th>
+        <th>الاسم</th>
+        <th>رقم الهاتف</th>
+        <th>إلغاء الحجز</th>
+      </tr>
+    </thead>
+    <tbody id="bookingTable"></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
