@@ -5,29 +5,34 @@
   <title>نظام حجز الملعب</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-color: green;">
-  <h1 style="text-align: center; color: white;">ملعب دارت سواري يرحب بيكم</h1>
-  <div class="form-container">
-    <form id="bookingForm">
-      <input type="text" id="name" placeholder="الاسم" required>
-      <input type="text" id="phone" placeholder="رقم الهاتف" required>
-      <select id="hour" required></select>
-      <button type="submit">حجز</button>
-    </form>
+<body>
+  <div class="container">
+    <h1>ملعب دارت سواري يرحب بيكم</h1>
+    <div class="form-container">
+      <form id="bookingForm">
+        <input type="text" id="name" placeholder="الاسم" required>
+        <input type="text" id="phone" placeholder="رقم الهاتف" required>
+        <select id="hour" required></select>
+        <input type="text" id="uniqueCode" placeholder="الرمز الخاص بك" required>
+        <button type="submit">حجز</button>
+      </form>
+    </div>
+    <button id="removeAllBookings" class="remove-btn">إزالة جميع الحجوزات</button>
+    <table>
+      <thead>
+        <tr>
+          <th>الساعة</th>
+          <th>الاسم</th>
+          <th>رقم الهاتف</th>
+          <th>الرمز</th>
+          <th>إزالة</th>
+        </tr>
+      </thead>
+      <tbody id="bookingTable"></tbody>
+    </table>
+    <p class="note">ملاحظة مهمة: عند حجز ساعة، يرجى كتابة الرمز إذا أردت إلغاء الحجز.</p>
+    <footer>Developer : Zaza</footer>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>الساعة</th>
-        <th>الاسم</th>
-        <th>رقم الهاتف</th>
-        <th>حذف الحجز</th>
-      </tr>
-    </thead>
-    <tbody id="bookingTable"></tbody>
-  </table>
-  <p style="color: white; text-align: center;">ملاحظة مهمة: عند حجز ساعة، يرجى كتابة رمز خاص بك إذا أردت إلغاء الحجز.</p>
-
   <script src="script.js"></script>
 </body>
 </html>
