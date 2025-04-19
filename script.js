@@ -1,86 +1,55 @@
-const hours = [
-  "04:00 مساءً", "05:00 مساءً", "06:00 مساءً", "07:00 مساءً", "08:00 مساءً", "09:00 مساءً",
-  "10:00 مساءً", "11:00 مساءً", "12:00 صباحاً", "01:00 صباحاً"
-];
+// قائمة الساعات المتاحة
+const hours = ['4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM', '12:00 AM', '1:00 AM'];
 
-const hourSelect = document.getElementById("hour");
-const bookingTable = document.getElementById("bookingTable");
-const bookings = JSON.parse(localStorage.getItem("bookings") || "{}");
-const password = "janzor"; // كلمة السر الثابتة
-
-// إضافة الخيارات للـ select
+// إضافة الساعات إلى select
+const hourSelect = document.getElementById('hour');
 hours.forEach(hour => {
-  const option = document.createElement("option");
+  const option = document.createElement('option');
   option.value = hour;
   option.textContent = hour;
   hourSelect.appendChild(option);
 });
 
-// عرض الحجوزات في الجدول
-function renderBookings() {
-  bookingTable.innerHTML = "";
-  hours.forEach(hour => {
-    const booking = bookings[hour];
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${hour}</td>
-      <td>${booking ? booking.name : '<span class="empty">غير محجوز</span>'}</td>
-      <td>${booking ? booking.phone : '<span class="empty">---</span>'}</td>
-      <td>${booking ? `<button class="cancelBtn" data-hour="${hour}">إلغاء</button>` : ''}</td>
-    `;
-    bookingTable.appendChild(tr);
-  });
+// مصفوفة لحفظ الحجوزات
+let bookings = [];
 
-  // إضافة وظيفة لأزرار الإلغاء
-  document.querySelectorAll(".cancelBtn").forEach(button => {
-    button.addEventListener("click", (e) => {
-      const hour = e.target.dataset.hour;
-      const enteredPassword = prompt("أدخل كلمة السر لإلغاء الحجز:");
-      if (enteredPassword === password) {
-        delete bookings[hour];
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        renderBookings();
-      } else {
-        alert("كلمة السر غير صحيحة!");
-      }
-    });
+// إضافة حجز جديد
+document.getElementById('bookingForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const hour = document.getElementById('hour').value;
+  const code = 'janzor'; // رمز ثابت هنا يمكن تغييره لأي شيء آخر
+
+  // إضافة الحجز إلى المصفوفة
+  bookings.push({ name, phone, hour, code });
+  updateBookingTable();
+});
+
+// تحديث جدول الحجوزات
+function updateBookingTable() {
+  const tableBody = document.getElementById('bookingTable');
+  tableBody.innerHTML = ''; // تفريغ الجدول قبل التحديث
+
+  bookings.forEach((booking, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${booking.hour}</td>
+      <td>${booking.name}</td>
+      <td>${booking.phone}</td>
+      <td><button onclick="deleteBooking(${index})">حذف</button></td>
+    `;
+    tableBody.appendChild(row);
   });
 }
 
-// حجز الملعب
-document.getElementById("bookingForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const hour = document.getElementById("hour").value;
-  const enteredPassword = document.getElementById("password").value;
-
-  // التحقق من كلمة السر
-  if (enteredPassword !== password) {
-    alert("كلمة السر غير صحيحة!");
-    return;
-  }
-
-  if (bookings[hour]) {
-    alert("هذه الساعة محجوزة بالفعل!");
-    return;
-  }
-
-  bookings[hour] = { name, phone };
-  localStorage.setItem("bookings", JSON.stringify(bookings));
-  renderBookings();
-  this.reset();
-});
-
-// مسح جميع السجلات
-document.getElementById("clearAllBtn").addEventListener("click", function() {
-  const enteredPassword = prompt("أدخل كلمة السر لإلغاء جميع الحجوزات:");
-  if (enteredPassword === password) {
-    localStorage.removeItem("bookings");
-    renderBookings();
+// حذف الحجز
+function deleteBooking(index) {
+  const code = prompt('أدخل كلمة السر لإلغاء الحجز:');
+  if (code === 'janzor') {
+    bookings.splice(index, 1); // حذف الحجز من المصفوفة
+    updateBookingTable(); // تحديث الجدول
   } else {
-    alert("كلمة السر غير صحيحة!");
+    alert('كلمة السر غير صحيحة!');
   }
-});
-
-renderBookings();
+}
