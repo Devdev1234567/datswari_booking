@@ -1,61 +1,39 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ملعب شرقية يرحب بكم</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حجز ملعب</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="app.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <h1>ملعب شرقية يرحب بكم</h1>
-    <label>الاسم:</label>
-    <input type="text" id="name" />
+    <header>
+        <h1>ملعب شرقية يرحب بكم</h1>
+    </header>
 
-    <label>رقم الهاتف:</label>
-    <input type="text" id="phone" />
+    <main>
+        <section id="booking-section">
+            <h2>جدول الحجز</h2>
+            <table id="bookingTable">
+                <thead>
+                    <tr>
+                        <th>الساعة</th>
+                        <th>الاسم</th>
+                        <th>رقم الهاتف</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- سيتم ملء الجدول هنا من خلال JavaScript -->
+                </tbody>
+            </table>
+        </section>
+    </main>
 
-    <label>اختار ساعة الحجز:</label>
-    <select id="time">
-      <option value="">-- اختار --</option>
-      <option value="4">4 مساءً</option>
-      <option value="5">5 مساءً</option>
-      <option value="6">6 مساءً</option>
-      <option value="7">7 مساءً</option>
-      <option value="8">8 مساءً</option>
-      <option value="9">9 مساءً</option>
-      <option value="10">10 مساءً</option>
-      <option value="11">11 مساءً</option>
-      <option value="12">12 صباحاً</option>
-      <option value="1">1 صباحاً</option>
-    </select>
-
-    <label>الرمز الخاص بك:</label>
-    <input type="password" id="userCode" placeholder="ادخل رمزك الخاص" />
-
-    <button onclick="book()">احجز</button>
-
-    <h3>جدول الحوجزات</h3>
-    <table id="bookingTable">
-      <thead>
-        <tr>
-          <th>الاسم</th>
-          <th>الهاتف</th>
-          <th>الساعة</th>
-          <th>إلغاء الحجز</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <button onclick="deleteAllBookings()">حذف جميع الحوجزات</button>
-
-    <div class="contact">
-      تواصل عبر الرقم <span>0946485839</span> أو <span>0946298267</span>
-    </div>
-    <div class="footer">Developer: Zaza</div>
-  </div>
-
-  <script type="module" src="script.js"></script>
+    <footer>
+        <p>Developer : Zaza</p>
+        <p>اتصل بنا: 0946485839 | 0946298267</p>
+    </footer>
 </body>
 </html>
