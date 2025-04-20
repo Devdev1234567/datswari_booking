@@ -1,89 +1,80 @@
-/* خلفية الموقع */
 body {
+  font-family: 'Arial', sans-serif;
   background-image: url('https://cdn.discordapp.com/attachments/1286403887590543402/1362987360769278234/received_560593747070180.jpg?ex=68046465&is=680312e5&hm=2c6214c6425e1391acf94be45f16159e684f0b82961b5ba93ee078a08a194259&');
   background-size: cover;
-  font-family: Arial, sans-serif;
+  background-position: center;
+  margin: 0;
+  padding: 0;
   color: white;
 }
 
-/* تحديد شكل الحاوية الرئيسية */
 .container {
-  max-width: 900px;
-  margin: 50px auto;
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: rgba(0, 60, 0, 0.85);
+  border: 2px solid white;
   padding: 20px;
+  border-radius: 15px;
+}
+
+h1, h3 {
   text-align: center;
-  background: rgba(0, 0, 0, 0.6); /* تأثير الشفافية */
-  border-radius: 10px;
-}
-
-h1 {
-  color: #00ff00; /* لون النص */
-  font-size: 36px;
-}
-
-.form-container form {
   margin-bottom: 20px;
 }
 
-input, select, button {
-  padding: 10px;
-  margin: 10px;
-  width: 90%;
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
   border-radius: 5px;
   border: none;
-  font-size: 16px;
 }
 
 button {
-  background-color: #4CAF50; /* لون الخلفية الأخضر */
-  color: white;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #ffffff;
+  color: #006600;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049; /* تأثير عند مرور الماوس */
 }
 
 table {
   width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
+  background-color: #004400;
 }
 
 th, td {
-  padding: 15px;
+  border: 1px solid white;
+  padding: 8px;
   text-align: center;
-}
-
-th {
-  background-color: #4CAF50;
-}
-
-td {
-  background-color: #f2f2f2;
-}
-
-.note {
-  font-size: 16px;
-  color: #ffdd57;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-footer {
-  font-size: 14px;
-  margin-top: 40px;
   color: white;
 }
 
-.remove-btn {
-  background-color: #ff4d4d; /* لون الأحمر */
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.contact {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
 }
 
-.remove-btn:hover {
-  background-color: #e60000;
+.contact span {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+  opacity: 0.8;
 }
