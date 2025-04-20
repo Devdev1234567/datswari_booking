@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlDLrvDNumFk9NA4ldTfr2vEBlMrxPzgg",
@@ -19,23 +19,17 @@ window.book = function () {
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
   const time = document.getElementById("time").value;
+  const userCode = document.getElementById("userCode").value;
 
-  if (!name || !phone || !time) return alert("املأ كل البيانات");
+  if (!name || !phone || !time || !userCode) return alert("املأ كل البيانات");
 
   set(ref(db, "bookings/" + time), {
     name,
     phone,
-    time
+    time,
+    userCode
   });
-};
-
-window.clearBookings = function () {
-  const code = document.getElementById("deleteCode").value;
-  if (code === "123456") {
-    remove(ref(db, "bookings"));
-  } else {
-    alert("الرمز خاطئ");
-  }
+  alert("تم الحجز بنجاح!");
 };
 
 function loadBookings() {
@@ -49,12 +43,6 @@ function loadBookings() {
       tableBody.innerHTML += row;
     });
   });
-}
-
-// رسترة تلقائية عند 3 صباحًا
-const now = new Date();
-if (now.getHours() === 3) {
-  remove(ref(db, "bookings"));
 }
 
 loadBookings();
