@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>datswari</title>
+  <title>ملعب شرقية يرحب بكم</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>ملعب شرقية يرحب بكم</h1> <!-- الشعار هنا -->
+    <h1>ملعب شرقية يرحب بكم</h1>
     <label>الاسم:</label>
     <input type="text" id="name" />
+
     <label>رقم الهاتف:</label>
     <input type="text" id="phone" />
+
     <label>اختار ساعة الحجز:</label>
     <select id="time">
       <option value="">-- اختار --</option>
@@ -27,10 +29,12 @@
       <option value="12">12 صباحاً</option>
       <option value="1">1 صباحاً</option>
     </select>
+
+    <label>الرمز الخاص بك:</label>
+    <input type="password" id="userCode" placeholder="ادخل رمزك الخاص" />
+
     <button onclick="book()">احجز</button>
-    <label>رمز مسح جميع الحوجزات:</label>
-    <input type="password" id="deleteCode" placeholder="رمز خاص بك" />
-    <button onclick="clearBookings()">مسح جميع الحوجزات</button>
+
     <h3>جدول الحوجزات</h3>
     <table id="bookingTable">
       <thead>
@@ -42,11 +46,13 @@
       </thead>
       <tbody></tbody>
     </table>
+
     <div class="contact">
       تواصل عبر الرقم <span>0946485839</span> أو <span>0946298267</span>
     </div>
     <div class="footer">Developer: Zaza</div>
   </div>
+
   <script type="module" src="script.js"></script>
 </body>
 </html>
