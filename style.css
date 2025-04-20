@@ -1,71 +1,116 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+  font-family: 'Arial', sans-serif;
+  background-image: url("https://cdn.discordapp.com/attachments/1286403887590543402/1362987360769278234/received_560593747070180.jpg");
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 20px;
+  direction: rtl;
+  color: white;
 }
 
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px;
-    text-align: center;
+.main-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 10px;
 }
 
-h1 {
-    font-size: 2rem;
+.form-container {
+  background-color: rgba(0, 100, 0, 0.8);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: auto;
+  margin-bottom: 20px;
 }
 
-main {
-    padding: 20px;
+.form-container input,
+.form-container select,
+.form-container button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
 }
 
-#booking-section {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.form-container button {
+  background-color: gold;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-#bookingTable {
-    width: 100%;
-    border-collapse: collapse;
+.reset-container {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-#bookingTable th, #bookingTable td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
+.reset-container button {
+  background-color: crimson;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-#bookingTable th {
-    background-color: #4CAF50;
-    color: white;
+.reset-container input {
+  padding: 8px;
+  margin-top: 10px;
+  width: 250px;
+  border-radius: 8px;
+  border: none;
+  display: block;
+  margin: 10px auto;
 }
 
-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  background-color: rgba(0, 100, 0, 0.85);
+  color: white;
+  max-width: 800px;
+  border: 2px solid white;
 }
 
-button:hover {
-    background-color: #d32f2f;
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid white;
+  text-align: center;
 }
 
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+th {
+  background-color: darkgreen;
+}
+
+button.delete {
+  background-color: darkred;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.note, .contact, footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  background-color: rgba(0,0,0,0.6);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.contact span {
+  font-weight: bold;
+  color: gold;
 }
