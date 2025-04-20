@@ -1,59 +1,41 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>datswari</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>نظام حجز ملعب دارت سواري</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>datswari</h1>
-    <label>الاسم:</label>
-    <input type="text" id="name" />
-
-    <label>رقم الهاتف:</label>
-    <input type="text" id="phone" />
-
-    <label>اختار ساعة الحجز:</label>
-    <select id="time">
-      <option value="">-- اختار --</option>
-      <option value="4">4 مساءً</option>
-      <option value="5">5 مساءً</option>
-      <option value="6">6 مساءً</option>
-      <option value="7">7 مساءً</option>
-      <option value="8">8 مساءً</option>
-      <option value="9">9 مساءً</option>
-      <option value="10">10 مساءً</option>
-      <option value="11">11 مساءً</option>
-      <option value="12">12 صباحاً</option>
-      <option value="1">1 صباحاً</option>
-    </select>
-
-    <button onclick="book()">احجز</button>
-
-    <label>رمز مسح جميع الحوجزات:</label>
-    <input type="password" id="deleteCode" placeholder="رمز خاص بك" />
-    <button onclick="clearBookings()">مسح جميع الحوجزات</button>
-
-    <h3>جدول الحوجزات</h3>
-    <table id="bookingTable">
-      <thead>
-        <tr>
-          <th>الاسم</th>
-          <th>الهاتف</th>
-          <th>الساعة</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <div class="contact">
-      تواصل عبر الرقم <span>0946485839</span> أو <span>0946298267</span>
-    </div>
-    <div class="footer">Developer: Zaza</div>
+  <h1 class="main-title">ملعب شرقية يرحب بكم</h1> <!-- الشعار -->
+  <div class="form-container">
+    <form id="bookingForm">
+      <input type="text" id="name" placeholder="الاسم" required>
+      <input type="text" id="phone" placeholder="رقم الهاتف" required>
+      <select id="hour" required></select>
+      <input type="text" id="code" placeholder="الرمز الخاص بك" required>
+      <button type="submit">حجز</button>
+    </form>
   </div>
-
-  <script type="module" src="script.js"></script>
+  <div class="reset-container">
+    <button onclick="showDeleteAllPrompt()">مسح جميع الحجوزات</button>
+    <input type="password" id="deleteAllCode" placeholder="اكتب رمز المسح" style="display:none;" onkeydown="if(event.key === 'Enter') deleteAll()">
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>الساعة</th>
+        <th>الاسم</th>
+        <th>رقم الهاتف</th>
+        <th>حذف</th>
+      </tr>
+    </thead>
+    <tbody id="bookingTable"></tbody>
+  </table>
+  <p class="note">ملاحظة مهمة: عند حجز ساعة، يُرجى كتابة الرمز إذا كنت تريد إلغاء الحجز لاحقًا.</p>
+  <p class="contact">تواصل عبر الرقم <span>0946485839</span> أو <span>0946298267</span></p>
+  <footer>Developer : Zaza</footer>
+  <script src="script.js"></script>
 </body>
 </html>
