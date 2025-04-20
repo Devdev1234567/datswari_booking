@@ -1,68 +1,60 @@
-// نماذج الحجز
-const bookingTable = document.getElementById("bookingTable");
-const bookingForm = document.getElementById("bookingForm");
-const hourSelect = document.getElementById("hour");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-// إعداد ساعات الحجز
-const hours = ["4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM", "12:00 AM", "1:00 AM"];
+const firebaseConfig = {
+  apiKey: "AIzaSyBlDLrvDNumFk9NA4ldTfr2vEBlMrxPzgg",
+  authDomain: "datswari-boorking.firebaseapp.com",
+  databaseURL: "https://datswari-boorking-default-rtdb.firebaseio.com",
+  projectId: "datswari-boorking",
+  storageBucket: "datswari-boorking.firebasestorage.app",
+  messagingSenderId: "994128829706",
+  appId: "1:994128829706:web:5da06448e62c095c75eef3",
+  measurementId: "G-9Z13Q3102W"
+};
 
-hours.forEach(hour => {
-  const option = document.createElement("option");
-  option.value = hour;
-  option.textContent = hour;
-  hourSelect.appendChild(option);
-});
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-
-// إضافة الحجز
-bookingForm.addEventListener("submit", function(e) {
-  e.preventDefault();
-
+window.book = function () {
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
-  const hour = document.getElementById("hour").value;
-  const uniqueCode = document.getElementById("uniqueCode").value;
+  const time = document.getElementById("time").value;
 
-  const newBooking = { name, phone, hour, uniqueCode };
-  bookings.push(newBooking);
-  localStorage.setItem("bookings", JSON.stringify(bookings));
-  renderBookings();
-  bookingForm.reset();
-});
+  if (!name || !phone || !time) return alert("املأ كل البيانات");
 
-// عرض الحجزات
-function renderBookings() {
-  bookingTable.innerHTML = "";
-  bookings.forEach((booking, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${booking.hour}</td>
-      <td>${booking.name}</td>
-      <td>${booking.phone}</td>
-      <td>${booking.uniqueCode}</td>
-      <td><button class="remove-btn" onclick="removeBooking(${index})">إزالة</button></td>
-    `;
-    bookingTable.appendChild(row);
+  set(ref(db, "bookings/" + time), {
+    name,
+    phone,
+    time
+  });
+};
+
+window.clearBookings = function () {
+  const code = document.getElementById("deleteCode").value;
+  if (code === "123456") {
+    remove(ref(db, "bookings"));
+  } else {
+    alert("الرمز خاطئ");
+  }
+};
+
+function loadBookings() {
+  const tableBody = document.querySelector("#bookingTable tbody");
+  const bookingsRef = ref(db, "bookings");
+  onValue(bookingsRef, (snapshot) => {
+    tableBody.innerHTML = "";
+    snapshot.forEach((child) => {
+      const data = child.val();
+      const row = `<tr><td>${data.name}</td><td>${data.phone}</td><td>${data.time}</td></tr>`;
+      tableBody.innerHTML += row;
+    });
   });
 }
 
-// إزالة الحجز
-function removeBooking(index) {
-  if (confirm("هل أنت متأكد أنك تريد إزالة هذا الحجز؟")) {
-    bookings.splice(index, 1);
-    localStorage.setItem("bookings", JSON.stringify(bookings));
-    renderBookings();
-  }
+// رسترة تلقائية عند 3 صباحًا
+const now = new Date();
+if (now.getHours() === 3) {
+  remove(ref(db, "bookings"));
 }
 
-// إزالة جميع الحجوزات
-document.getElementById("removeAllBookings").addEventListener("click", function() {
-  if (confirm("هل أنت متأكد أنك تريد إزالة جميع الحجوزات؟")) {
-    bookings = [];
-    localStorage.setItem("bookings", JSON.stringify(bookings));
-    renderBookings();
-  }
-});
-
-renderBookings();
+loadBookings();
