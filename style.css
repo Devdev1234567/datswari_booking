@@ -1,116 +1,62 @@
 body {
-  font-family: 'Arial', sans-serif;
-  background-image: url("https://cdn.discordapp.com/attachments/1286403887590543402/1362987360769278234/received_560593747070180.jpg");
+  background: url('https://cdn.discordapp.com/attachments/1286403887590543402/1362987360769278234/received_560593747070180.jpg') no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
+  font-family: 'Arial', sans-serif;
   margin: 0;
-  padding: 20px;
-  direction: rtl;
+  padding: 0;
   color: white;
 }
 
-.main-title {
+.container {
+  max-width: 95%;
+  margin: 20px auto;
   text-align: center;
-  font-size: 32px;
-  margin-bottom: 20px;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 10px;
-  border-radius: 10px;
 }
 
-.form-container {
-  background-color: rgba(0, 100, 0, 0.8);
-  padding: 20px;
-  border-radius: 12px;
-  max-width: 500px;
-  margin: auto;
-  margin-bottom: 20px;
-}
-
-.form-container input,
-.form-container select,
-.form-container button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-}
-
-.form-container button {
-  background-color: gold;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.reset-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.reset-container button {
-  background-color: crimson;
+h1 {
+  font-size: 28px;
   color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.reset-container input {
-  padding: 8px;
-  margin-top: 10px;
-  width: 250px;
-  border-radius: 8px;
-  border: none;
-  display: block;
-  margin: 10px auto;
+  margin-bottom: 20px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: auto;
-  background-color: rgba(0, 100, 0, 0.85);
-  color: white;
-  max-width: 800px;
-  border: 2px solid white;
+  margin-bottom: 20px;
+  background-color: #003300cc;
+  border: 3px solid white;
 }
 
 th, td {
-  padding: 12px;
-  border-bottom: 1px solid white;
-  text-align: center;
+  padding: 10px;
+  border: 1px solid white;
 }
 
-th {
-  background-color: darkgreen;
-}
-
-button.delete {
-  background-color: darkred;
-  color: white;
+input, select, button {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
   border: none;
-  padding: 5px 10px;
-  border-radius: 6px;
+}
+
+button {
+  background-color: #009900;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.note, .contact, footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 16px;
-  background-color: rgba(0,0,0,0.6);
-  padding: 10px;
-  border-radius: 10px;
+button:hover {
+  background-color: #007700;
 }
 
-.contact span {
+.phone {
+  color: #ffd700;
   font-weight: bold;
-  color: gold;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: white;
 }
