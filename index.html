@@ -1,57 +1,58 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>نظام حجز ملعب دارت سواري</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ملعب دارت سواري</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js" defer></script>
 </head>
 <body>
-  <h1 class="main-title">ملعب دارت سواري يرحب بكم</h1>  <div class="form-container">
-    <form id="bookingForm">
-      <input type="text" id="name" placeholder="الاسم" required>
-      <input type="text" id="phone" placeholder="رقم الهاتف" required>
-      <select id="hour" required></select>
-      <input type="text" id="code" placeholder="الرمز الخاص بك" required>
-      <button type="submit">حجز</button>
-    </form>
-  </div>  <div class="reset-container">
-    <button onclick="showDeleteAllPrompt()">مسح جميع الحجوزات</button>
-    <input type="password" id="deleteAllCode" placeholder="اكتب رمز المسح" style="display:none;" onkeydown="if(event.key === 'Enter') deleteAll()">
-  </div>  <table>
-    <thead>
-      <tr>
-        <th>الساعة</th>
-        <th>الاسم</th>
-        <th>رقم الهاتف</th>
-        <th>حذف</th>
-      </tr>
-    </thead>
-    <tbody id="bookingTable"></tbody>
-  </table>  <p class="note">ملاحظة مهمة: عند حجز ساعة، يُرجى كتابة الرمز إذا كنت تريد إلغاء الحجز لاحقًا.</p>
-  <p class="contact">تواصل عبر الرقم <span>0946485839</span> أو <span>0946298267</span></p>
-  <footer>Developer : Zaza</footer>
+  <div class="container">
+    <h1>ملعب دارت سواري يرحب بكم</h1>
+    <table id="bookingTable">
+      <thead>
+        <tr>
+          <th>الساعة</th>
+          <th>الاسم</th>
+          <th>رقم الهاتف</th>
+          <th>رمزك</th>
+          <th>حذف</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="booking-form">
+      <input type="text" id="name" placeholder="اسمك" required />
+      <input type="text" id="phone" placeholder="رقمك" required />
+      <input type="text" id="code" placeholder="رمز خاص بك" required />
+      <select id="time">
+        <option disabled selected>اختيار ساعة</option>
+        <!-- من 4 العصر إلى 1 الليل -->
+        <script>
+          for (let i = 16; i <= 25; i++) {
+            const hour = i <= 24 ? i : i - 24;
+            const period = i < 24 ? 'مساءً' : 'صباحاً';
+            document.write(`<option value="${hour}:00">${hour}:00 ${period}</option>`);
+          }
+        </script>
+      </select>
+      <button onclick="book()">احجز</button>
+    </div>
+
+    <div class="delete-section">
+      <input type="text" id="deleteCodeInput" placeholder="رمز مسح جميع الحوجزات" />
+      <button onclick="deleteAllBookings()">مسح الكل</button>
+    </div>
+
+    <div class="info">
+      للتواصل عبر الرقم:
+      <span class="phone">0946485839</span> أو
+      <span class="phone">0946298267</span>
+    </div>
+
+    <footer>Developer : Zaza</footer>
+  </div>
 </body>
-</html>/* style.css */ body { font-family: 'Arial', sans-serif; background: url('https://cdn.discordapp.com/attachments/1286403887590543402/1362987360769278234/received_560593747070180.jpg') no-repeat center center fixed; background-size: cover; color: white; text-align: center; padding: 20px; direction: rtl; }
-
-h1.main-title { font-size: 28px; margin-bottom: 20px; background: rgba(0, 100, 0, 0.7); padding: 10px; border-radius: 10px; }
-
-.form-container, .reset-container { margin: 20px auto; background: rgba(0, 100, 0, 0.7); padding: 15px; border-radius: 10px; max-width: 400px; }
-
-input, select, button { display: block; width: 90%; margin: 10px auto; padding: 10px; border-radius: 5px; border: none; }
-
-button { background-color: #4CAF50; color: white; cursor: pointer; }
-
-button:hover { background-color: #45a049; }
-
-table { width: 90%; margin: 20px auto; border-collapse: collapse; background-color: rgba(0, 100, 0, 0.8); }
-
-th, td { border: 1px solid white; padding: 10px; font-size: 16px; }
-
-.note, .contact { margin-top: 20px; font-size: 16px; background-color: rgba(0, 100, 0, 0.7); display: inline-block; padding: 10px; border-radius: 10px; }
-
-footer { margin-top: 20px; font-weight: bold; }
-
-span { color: #ffd700; font-weight: bold; }
-
-@media (max-width: 600px) { table, th, td { font-size: 14px; } h1.main-title { font-size: 22px; } input, select, button { font-size: 14px; } }
-
+</html>
