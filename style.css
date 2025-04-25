@@ -4,8 +4,10 @@ body {
   background-image: url('https://cdn.discordapp.com/attachments/1286403887590543402/1362987360769278234/received_560593747070180.jpg');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed; /* لجعل الخلفية ثابتة */
   color: white;
   direction: rtl;
+  overflow-x: hidden; /* لمنع التمرير الأفقي */
 }
 
 .container {
@@ -13,6 +15,7 @@ body {
   max-width: 100%;
   padding: 20px;
   box-sizing: border-box;
+  margin-top: 50px; /* لتوفير مساحة من الأعلى */
 }
 
 .header {
@@ -86,4 +89,27 @@ footer {
   text-align: center;
   color: silver;
   font-size: 14px;
+}
+
+/* تحسين استجابة الجوال */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .header {
+    font-size: 20px;
+  }
+
+  input, select, button {
+    font-size: 14px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  footer {
+    font-size: 12px;
+  }
 }
