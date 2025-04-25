@@ -1,49 +1,59 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ملعب دارت سواري يرحب بكم</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ملعب دارت سواري</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js" defer></script>
 </head>
 <body>
+  <div class="container">
+    <h1 class="header">ملعب دارت سواري يرحب بكم</h1>
 
-  <h1>ملعب دارت سواري يرحب بكم</h1>
+    <div class="form">
+      <input type="text" id="name" placeholder="اسمك" />
+      <input type="text" id="phone" placeholder="رقم الهاتف" />
+      <input type="text" id="code" placeholder="رمزك الخاص لإلغاء الحجز" />
+      <select id="time">
+        <option value="">اختر الوقت</option>
+        <option value="4 مساءً">4 مساءً</option>
+        <option value="5 مساءً">5 مساءً</option>
+        <option value="6 مساءً">6 مساءً</option>
+        <option value="7 مساءً">7 مساءً</option>
+        <option value="8 مساءً">8 مساءً</option>
+        <option value="9 مساءً">9 مساءً</option>
+        <option value="10 مساءً">10 مساءً</option>
+        <option value="11 مساءً">11 مساءً</option>
+        <option value="12 صباحاً">12 صباحاً</option>
+        <option value="1 صباحاً">1 صباحاً</option>
+      </select>
+      <button id="bookBtn">احجز الآن</button>
+    </div>
 
-  <table id="bookingTable">
-    <thead>
-      <tr>
-        <th>الساعة</th>
-        <th>الاسم</th>
-        <th>رقم الهاتف</th>
-        <th>رمزك</th>
-        <th>حذف</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
+    <table>
+      <thead>
+        <tr>
+          <th>الوقت</th>
+          <th>الاسم</th>
+          <th>الهاتف</th>
+          <th>رمز الإلغاء</th>
+          <th>حذف</th>
+        </tr>
+      </thead>
+      <tbody id="bookingsTable"></tbody>
+    </table>
 
-  <div class="form">
-    <input type="text" id="nameInput" placeholder="اسمك">
-    <input type="text" id="phoneInput" placeholder="رقمك">
-    <input type="text" id="codeInput" placeholder="رمز خاص بك">
-    <select id="hourSelect">
-      <option value="">اختيار ساعة</option>
-    </select>
-    <button onclick="bookSlot()">احجز</button>
-    <br><br>
-    <input type="text" id="adminCodeInput" placeholder="رمز مسح جميع الحوجزات">
-    <button onclick="deleteAllBookings()">مسح الكل</button>
+    <div class="delete-all">
+      <input type="password" id="adminCode" placeholder="رمز مسح جميع الحوجزات" />
+      <button id="deleteAllBtn">مسح الكل</button>
+    </div>
+
+    <div class="note">لإلغاء الحجز، أدخل الرمز الصحيح</div>
+    <div class="contacts">
+      للتواصل: <span>0946485839</span> | <span>0946298267</span>
+    </div>
+    <footer>Developer : Zaza</footer>
   </div>
-
-  <div class="contact">
-    <p>للاستفسار: <span>0946485839</span> - <span>0946298267</span></p>
-  </div>
-
-  <footer>Developer: Zaza</footer>
-
-  <!-- Firebase -->
-  <script type="module" src="script.js"></script>
-
 </body>
 </html>
