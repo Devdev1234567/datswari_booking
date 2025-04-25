@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+import { getDatabase, ref, set, get, remove, onValue } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCMPx38CeZAkHY7PGSM_E4GIsndaPNJ_wU",
@@ -14,71 +14,96 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const tableBody = document.querySelector("tbody");
 
-function loadBookings() {
-  onValue(ref(db, "bookings"), snapshot => {
+const hours = [
+  "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM",
+  "9:00 PM", "10:00 PM", "11:00 PM", "12:00 AM", "1:00 AM"
+];
+
+const hourSelect = document.getElementById("hourSelect");
+const tableBody = document.getElementById("tableBody");
+
+// Populate hour select
+hours.forEach(hour => {
+  const option = document.createElement("option");
+  option.value = hour;
+  option.textContent = hour;
+  hourSelect.appendChild(option);
+});
+
+// Book Slot
+window.bookSlot = function() {
+  const name = document.getElementById("nameInput").value.trim();
+  const phone = document.getElementById("phoneInput").value.trim();
+  const code = document.getElementById("codeInput").value.trim();
+  const hour = document.getElementById("hourSelect").value;
+
+  if (!name || !phone || !code || !hour) {
+    alert("رجاءً عبي جميع الخانات");
+    return;
+  }
+
+  set(ref(db, "bookings/" + hour), {
+    name,
+    phone,
+    code
+  }).then(() => {
+    alert("تم الحجز بنجاح");
+    document.getElementById("nameInput").value = "";
+    document.getElementById("phoneInput").value = "";
+    document.getElementById("codeInput").value = "";
+    document.getElementById("hourSelect").value = "";
+  }).catch(error => {
+    alert("خطأ: " + error.message);
+  });
+}
+
+// Display bookings
+function displayBookings() {
+  const bookingsRef = ref(db, "bookings");
+  onValue(bookingsRef, (snapshot) => {
     tableBody.innerHTML = "";
     const data = snapshot.val();
     if (data) {
-      Object.keys(data).forEach(time => {
-        const booking = data[time];
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${time}</td>
+      Object.keys(data).forEach(hour => {
+        const booking = data[hour];
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td>${hour}</td>
           <td>${booking.name}</td>
           <td>${booking.phone}</td>
           <td>${booking.code}</td>
-          <td><button onclick="deleteBooking('${time}', '${booking.code}')">🗑</button></td>
+          <td><button onclick="deleteBooking('${hour}', '${booking.code}')">حذف</button></td>
         `;
-        tableBody.appendChild(row);
+        tableBody.appendChild(tr);
       });
     }
   });
 }
-loadBookings();
 
-window.book = function () {
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const code = document.getElementById("code").value;
-  const time = document.getElementById("time").value;
-  if (name && phone && code && time) {
-    set(ref(db, `bookings/${time}`), {
-      name,
-      phone,
-      code
-    });
-    alert("تم الحجز بنجاح");
-  } else {
-    alert("يرجى تعبئة جميع الحقول");
-  }
-};
-
-window.deleteBooking = function (time, code) {
-  const inputCode = prompt("أدخل رمزك لحذف الحجز:");
-  if (inputCode === code) {
-    remove(ref(db, `bookings/${time}`));
+// Delete single booking
+window.deleteBooking = function(hour, userCode) {
+  const inputCode = prompt("ادخل رمزك لحذف الحجز:");
+  if (inputCode === userCode) {
+    remove(ref(db, "bookings/" + hour));
     alert("تم حذف الحجز");
   } else {
-    alert("الرمز غير صحيح");
+    alert("رمز خاطئ");
   }
-};
+}
 
-window.deleteAllBookings = function () {
-  const input = document.getElementById("deleteCodeInput").value;
-  if (input === "Abduo123") {
-    remove(ref(db, "bookings"));
-    alert("تم مسح جميع الحوجزات");
+// Delete all bookings
+window.deleteAllBookings = function() {
+  const masterCode = "Abduo123"; // رمز مسح جميع الحوجزات
+  const input = document.getElementById("adminCodeInput").value.trim();
+  if (input === masterCode) {
+    remove(ref(db, "bookings")).then(() => {
+      alert("تم مسح جميع الحجزات");
+    });
   } else {
-    alert("رمز المسح غير صحيح");
+    alert("رمز خاطئ");
   }
-};
+}
 
-// حذف تلقائي كل يوم عند منتصف الليل
-setInterval(() => {
-  const now = new Date();
-  if (now.getHours() === 0 && now.getMinutes() === 0) {
-    remove(ref(db, "bookings"));
-  }
-}, 60000);
+displayBookings();
