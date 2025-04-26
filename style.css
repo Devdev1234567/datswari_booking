@@ -1,88 +1,94 @@
 body {
   margin: 0;
   font-family: 'Tajawal', sans-serif;
-  background-image: url('https://cdn.discordapp.com/attachments/1286403887590543402/1362987360769278234/received_560593747070180.jpg');
+  background-image: url('https://cdn.discordapp.com/attachments/1286403887590543402/1365480810206986371/received_1049131447211451.jpg?ex=680d769a&is=680c251a&hm=55f0c56abba7fb57cff65aa8785ab5a989bfde7ffbe20ffe328e447518599d24&');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   color: white;
-  touch-action: manipulation;
-  overscroll-behavior: none;
-  user-select: none;
+  direction: rtl;
 }
 
 .container {
-  max-width: 800px;
-  margin: 50px auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  max-width: 1000px;
   padding: 20px;
-  background-color: rgba(0, 0, 0, 0.65);
-  border-radius: 15px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.title-box {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 26px;
   text-align: center;
-  box-shadow: 0 0 15px rgba(0,0,0,0.8);
-}
-
-h1 {
-  font-size: 28px;
   margin-bottom: 20px;
-  color: #ffd700;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #003300cc;
   border: 2px solid white;
 }
 
-th, td {
-  padding: 12px;
-  border: 1px solid white;
-  text-align: center;
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 input, select, button {
-  padding: 8px;
-  margin: 5px;
-  border-radius: 5px;
+  padding: 10px;
+  border-radius: 8px;
   border: none;
-  font-family: inherit;
+  font-size: 16px;
 }
 
 button {
   background-color: #28a745;
   color: white;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
   background-color: #218838;
 }
 
-.delete-btn {
-  background-color: red;
-  color: white;
-  padding: 5px 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table, th, td {
+  border: 1px solid white;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+.delete-all {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .note {
-  margin-top: 10px;
+  text-align: center;
   font-size: 14px;
-  color: #ffeb3b;
+  margin-bottom: 10px;
 }
 
-.admin {
-  margin-top: 15px;
+.contact-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid white;
 }
 
-.footer {
-  margin-top: 20px;
-  font-size: 15px;
-}
-
-.highlight {
-  color: #00ffff;
-  font-weight: bold;
+footer {
+  text-align: center;
+  color: silver;
+  font-size: 14px;
 }
