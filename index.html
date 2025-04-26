@@ -1,58 +1,63 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ملعب جنزور شرقية</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js" defer></script>
 </head>
 <body>
-
   <div class="container">
-    <h1>ملعب جنزور شرقية يرحب بكم</h1>
+    <div class="title-box">ملعب جنزور شرقية يرحب بكم</div>
+    
+    <div class="form">
+      <input type="text" id="name" placeholder="اسمك" />
+      <input type="text" id="phone" placeholder="رقم الهاتف" />
+      <input type="text" id="code" placeholder="رمزك الخاص لإلغاء الحجز" />
+      <select id="time">
+        <option value="">اختر الوقت</option>
+        <option value="4 مساءً">4 مساءً</option>
+        <option value="5 مساءً">5 مساءً</option>
+        <option value="6 مساءً">6 مساءً</option>
+        <option value="7 مساءً">7 مساءً</option>
+        <option value="8 مساءً">8 مساءً</option>
+        <option value="9 مساءً">9 مساءً</option>
+        <option value="10 مساءً">10 مساءً</option>
+        <option value="11 مساءً">11 مساءً</option>
+        <option value="12 صباحاً">12 صباحاً</option>
+        <option value="1 صباحاً">1 صباحاً</option>
+      </select>
+      <button id="bookBtn">احجز الآن</button>
+    </div>
 
-    <table id="bookingTable">
+    <table>
       <thead>
         <tr>
-          <th>الساعة</th>
+          <th>الوقت</th>
           <th>الاسم</th>
-          <th>رقم الهاتف</th>
+          <th>الهاتف</th>
           <th>رمز الإلغاء</th>
-          <th>إلغاء</th>
+          <th>حذف</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody id="bookingsTable"></tbody>
     </table>
 
-    <div class="form">
-      <input type="text" id="name" placeholder="الاسم">
-      <input type="text" id="phone" placeholder="رقم الهاتف">
-      <input type="text" id="code" placeholder="رمز خاص للإلغاء">
-      <select id="time">
-        <option disabled selected>اختر الساعة</option>
-        <script>
-          for (let i = 16; i <= 25; i++) {
-            let hour = i > 12 ? `${i - 12} مساءً` : `${i} مساءً`;
-            document.write(`<option value="${i}">${hour}</option>`);
-          }
-        </script>
-      </select>
-      <button onclick="bookSlot()">احجز</button>
+    <div class="delete-all">
+      <input type="password" id="adminCode" placeholder="رمز مسح جميع الحوجزات" />
+      <button id="deleteAllBtn">مسح الكل</button>
     </div>
 
-    <div class="note">يجب الاحتفاظ بالرمز الخاص لإلغاء الحجز لاحقاً</div>
+    <div class="note">لإلغاء الحجز، أدخل الرمز الصحيح</div>
 
-    <div class="admin">
-      <input type="password" id="adminCode" placeholder="رمز مسح جميع الحجزات">
-      <button onclick="clearAll()">مسح الكل</button>
+    <div class="contact-box">
+      <p>للاستفسار والتواصل:</p>
+      <p><strong>0946485839</strong></p>
+      <p><strong>0946298267</strong></p>
     </div>
 
-    <div class="footer">
-      للاستفسار اتصل على: <span class="highlight">0946485839</span> / <span class="highlight">0946298267</span><br>
-      Developer : Zaza
-    </div>
+    <footer>Developer : Zaza</footer>
   </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
