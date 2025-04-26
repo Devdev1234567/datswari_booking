@@ -1,73 +1,99 @@
-const dbUrl = "https://datswari-booring-default-rtdb.firebaseio.com/bookings.json";
-const masterCode = "Abduo123";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
 
-function fetchBookings() {
-  fetch(dbUrl)
-    .then(res => res.json())
-    .then(data => {
-      const tbody = document.querySelector("#bookingTable tbody");
-      tbody.innerHTML = "";
-      for (const key in data) {
-        const row = data[key];
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${row.time}</td>
-          <td>${row.name}</td>
-          <td>${row.phone}</td>
-          <td>${row.code}</td>
-          <td><button class="delete-btn" onclick="deleteBooking('${key}', '${row.code}')">حذف</button></td>
-        `;
-        tbody.appendChild(tr);
-      }
+const firebaseConfig = {
+  apiKey: "AIzaSyCMPx38CeZAkHY7PGSM_E4GIsndaPNJ_wU",
+  authDomain: "datswari-booring.firebaseapp.com",
+  databaseURL: "https://datswari-booring-default-rtdb.firebaseio.com",
+  projectId: "datswari-booring",
+  storageBucket: "datswari-booring.appspot.com",
+  messagingSenderId: "962253857620",
+  appId: "1:962253857620:web:0d66148bac90cce8745ec1"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const nameInput = document.getElementById("name");
+const phoneInput = document.getElementById("phone");
+const codeInput = document.getElementById("code");
+const timeSelect = document.getElementById("time");
+const bookingsTable = document.getElementById("bookingsTable");
+const bookBtn = document.getElementById("bookBtn");
+const deleteAllBtn = document.getElementById("deleteAllBtn");
+const adminCode = document.getElementById("adminCode");
+
+function renderTable() {
+  const bookingsRef = ref(db);
+  onValue(bookingsRef, (snapshot) => {
+    bookingsTable.innerHTML = "";
+    snapshot.forEach((child) => {
+      const time = child.key;
+      const data = child.val();
+
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${time}</td>
+        <td>${data.name}</td>
+        <td>${data.phone}</td>
+        <td>${data.code}</td>
+        <td><button class="delete-btn" data-time="${time}" data-code="${data.code}">🗑</button></td>
+      `;
+
+      bookingsTable.appendChild(row);
     });
+  });
 }
 
-function bookSlot() {
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const code = document.getElementById("code").value;
-  const time = document.getElementById("time").value;
+bookBtn.onclick = () => {
+  const name = nameInput.value.trim();
+  const phone = phoneInput.value.trim();
+  const code = codeInput.value.trim();
+  const time = timeSelect.value;
 
-  if (!name || !phone || !code || !time) return alert("يرجى تعبئة جميع البيانات");
+  if (!name || !phone || !code || !time) {
+    alert("يرجى ملء جميع الخانات");
+    return;
+  }
 
-  fetch(dbUrl)
-    .then(res => res.json())
-    .then(data => {
-      for (const key in data) {
-        if (data[key].time === time) return alert("هذه الساعة محجوزة بالفعل");
-      }
+  const timeRef = ref(db, time);
 
-      fetch(dbUrl.replace(".json", ""), {
-        method: "POST",
-        body: JSON.stringify({ name, phone, code, time })
-      }).then(() => {
-        fetchBookings();
-        document.getElementById("name").value = "";
-        document.getElementById("phone").value = "";
-        document.getElementById("code").value = "";
-        document.getElementById("time").selectedIndex = 0;
-      });
-    });
-}
+  set(timeRef, {
+    name,
+    phone,
+    code
+  }).then(() => {
+    nameInput.value = "";
+    phoneInput.value = "";
+    codeInput.value = "";
+    timeSelect.value = "";
+    alert("تم الحجز بنجاح ✅");
+  });
+};
 
-function deleteBooking(id, userCode) {
-  const inputCode = prompt("أدخل رمز الإلغاء:");
-  if (inputCode !== userCode) return alert("رمز الإلغاء غير صحيح");
-  fetch(`https://datswari-booring-default-rtdb.firebaseio.com/bookings/${id}.json`, { method: "DELETE" })
-    .then(() => fetchBookings());
-}
+bookingsTable.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-btn")) {
+    const time = e.target.dataset.time;
+    const trueCode = e.target.dataset.code;
+    const userCode = prompt("أدخل رمز الحجز لإلغاء الحجز");
 
-function clearAll() {
-  const input = document.getElementById("adminCode").value;
-  if (input !== masterCode) return alert("رمز غير صحيح");
-  fetch(dbUrl)
-    .then(res => res.json())
-    .then(data => {
-      for (const key in data) {
-        fetch(`https://datswari-booring-default-rtdb.firebaseio.com/bookings/${key}.json`, { method: "DELETE" });
-      }
-      fetchBookings();
-    });
-}
+    if (userCode === trueCode) {
+      remove(ref(db, time));
+    } else {
+      alert("رمز غير صحيح");
+    }
+  }
+});
 
-fetchBookings();
+deleteAllBtn.onclick = () => {
+  const masterCode = adminCode.value.trim();
+  if (masterCode === "Abduo123") {
+    remove(ref(db));
+    adminCode.value = "";
+  } else {
+    alert("رمز خاطئ!");
+  }
+};
+
+renderTable();
